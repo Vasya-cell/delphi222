@@ -19,7 +19,7 @@ object FormAbout: TFormAbout
   TextHeight = 20
   object Label1: TLabel
     Left = 0
-    Top = 57
+    Top = 20
     Width = 702
     Height = 20
     Align = alTop
@@ -27,10 +27,10 @@ object FormAbout: TFormAbout
   end
   object Label2: TLabel
     Left = 0
-    Top = 77
+    Top = 40
     Width = 702
-    Height = 364
-    Align = alClient
+    Height = 273
+    Align = alTop
     Alignment = taCenter
     Caption = 'Label2'
   end
@@ -38,7 +38,7 @@ object FormAbout: TFormAbout
     Left = 0
     Top = 0
     Width = 702
-    Height = 57
+    Height = 20
     Align = alTop
     Alignment = taCenter
     Caption = 'Label3'
@@ -48,5 +48,14 @@ object FormAbout: TFormAbout
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Button1: TButton
+    Left = 304
+    Top = 368
+    Width = 97
+    Height = 25
+    Caption = #1047#1072#1082#1088#1099#1090#1100
+    TabOrder = 0
+    OnClick = Button1Click
   end
 end

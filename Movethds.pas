@@ -31,20 +31,21 @@ type
     procedure Execute; override;
   public
    
-    function FullDirectoryCopy(SourceDir, TargetDir: string; StopIfNotAllCopied, OverWriteFiles: Boolean): Boolean;
+
     Procedure updateprogress;
     constructor Create(a,b,pan: string; c,d,priznakfile: Boolean);
 
    function __CopyFolder(SourceDir, TargetDir: string): integer;
    function __CopyFile(fSource, fDest: String): Longint;
    function GetFileCount(Dir: string):integer;
-   Procedure CopyFile2(InFileName,OutFileName:String);
+
+   function FileGetSize(const aFileName: string): Int64;
 
 
   end;
 
 implementation
-uses  MainUnit;
+uses  MainUnit, UnitFormQuestion;
 var startrename:boolean;
 
  var priznakf:boolean;
@@ -56,41 +57,110 @@ begin
     ', (или измените имя каталог (имя файла))', s)
     then result:=true;
 end;
+function TMoveThread.FileGetSize(const aFileName: string): Int64;
+var AttributeData: TWin32FileAttributeData;
+begin
+  if GetFileAttributesEx(PChar(aFileName), GetFileExInfoStandard, @AttributeData) then
+  begin
+    Int64Rec(Result).Lo := AttributeData.nFileSizeLow;
+    Int64Rec(Result).Hi := AttributeData.nFileSizeHigh;
+  end
+  else
+    Result := -1;
+end;
+
 
 function TMoveThread.__CopyFile(fSource, fDest: String): Longint;
+Const
+
+  BlockSize = 512;
+
 var
   fsIn, fsOut: TFileStream; s,s1:string;
+  free_size, total_size,rfree_size, rtotal_size:int64;
+
+  ElapsedSize: Integer;
+
+CopySize: Integer;
+SourceStream: TFileStream;
+
+TargetStream: TFileStream; fdestt:string;
+
+
 begin
-s:=  fSource+'-->' +fDest; s1:='.ok';
- try
-  fsOut := TFileStream.Create(fDest, fmCreate);
-  fsIn := TFileStream.Create(fSource, fmOpenRead);
+fDestt:=fDest;
+    if fileexists (fDest)   then
+    begin
+        if  mainform.modecopy=1 then
+                begin
+          mainform.memo1.Lines.Add(fSource+'-->' +fDest+'.пропущен');
+                      exit;
+                      end;
+
+         if mainform.modecopy=2 then
+        fDestt:=fDest+' (2)';
+    end;
+ mainform.GetDiskSize(fDestt[1],free_size, total_size) ;
+                   if  (free_size)<FileGetSize(fSource) then
+                   begin
+
+                      s:=  fSource+'-->' +fDestt; s1:='.не хватает места';
+                      mainform.memo1.Lines.Add(s+s1);
+                      exit;
+                   end;
+ s:=  fSource+'-->' +fDestt; s1:='.ok';
+try
+    SourceStream := TFileStream.Create(fSource, fmOpenRead);
+    TargetStream := TFileStream.Create(fDestt, fmCreate);
+
    except on E: Exception do
     begin
-      fsIn.Free;
-      fsOut.Free;
+      SourceStream.Free;
+      TargetStream.Free;
       Result := 0;
-        s1:='.Ошибка';
+      s1:='.Ошибка';
 // тут можно вывести сообщение
 mainform.memo1.Lines.Add(s+s1);
 exit;
     end;
     end;
 
+
   try
+
+
     try
-      fsIn.Seek(0, soFromBeginning);
-      Result := fsOut.CopyFrom(fsIn, 0);
+       ElapsedSize := SourceStream.Size - SourceStream.Position;
+
+while ElapsedSize > 0 do
+
+begin
+
+if ElapsedSize < BlockSize then
+
+CopySize := ElapsedSize
+
+else
+
+CopySize := BlockSize;
+
+TargetStream.CopyFrom(SourceStream, CopySize);
+
+ElapsedSize := SourceStream.Size - SourceStream.Position;
+
+ end
+
+
     finally
-      fsIn.Free;
-      fsOut.Free;
+       TargetStream.Free;
+      SourceStream.Free;
        Synchronize(updateprogress);
     end;
 
   except on E: Exception do
     begin
-      fsIn.Free;
-      fsOut.Free;
+      TargetStream.Free;
+      SourceStream.Free;
       Result := 0;
         s1:='.Ошибка';
 // тут можно вывести сообщение
@@ -163,28 +233,7 @@ Panel:=pan;
    inherited Create(False);
 end;
 
-Procedure TMoveThread.CopyFile2(InFileName,OutFileName:String);
-Const
-  BufSize=512;
-Var
-  InFile,OutFile:TStream;
-  Buffer:Array[1..BufSize] Of Byte;
-  ReadBufSize:Integer;
-Begin
-  InFile:=Nil;
-  OutFile:=Nil;
-  Try
-    InFile:=TFileStream.Create(InFileName,fmOpenRead);
-    OutFile:=TFileStream.Create(OutFileName,fmCreate);
-    Repeat
-      ReadBufSize:=InFile.Read(Buffer,BufSize);
-      OutFile.Write(Buffer,ReadBufSize);
-    Until ReadBufSize<>BufSize;
-  Finally
-    InFile.Free;
-    OutFile.Free;
-  End;{Try}
-End;{CopyFile}
+
 
 Procedure TMoveThread.updateprogress;
 begin
@@ -194,50 +243,7 @@ if panel='L' then
   MainUnit.MainForm.ProgressBar2.Position:=MainUnit.MainForm.ProgressBar2.Position+1;
 end;
 
-function TMoveThread.FullDirectoryCopy(SourceDir, TargetDir: string; StopIfNotAllCopied,
-  OverWriteFiles: Boolean): Boolean;
-var
-  SR: TSearchRec;
-  I: Integer;
-  s: String;
-begin
-  Result := False;
-  SourceDir := IncludeTrailingBackslash(SourceDir);
-  TargetDir := IncludeTrailingBackslash(TargetDir);
-  if not DirectoryExists(SourceDir) then
-    Exit;
-  if not ForceDirectories(TargetDir) then
-    Exit;
-  s := TargetDir;
-  if dialogrename(s) then TargetDir:=s;
 
-
-  I := FindFirst(SourceDir + '*', faAnyFile, SR);
-  try
-    while I = 0 do
-    begin
-      if (SR.Name <> '') and (SR.Name <> '.') and (SR.Name <> '..') then
-      begin
-        if SR.Attr = faDirectory then
-          {Result := } FullDirectoryCopy(SourceDir + SR.Name, TargetDir + SR.NAME,
-            StopIfNotAllCopied, OverWriteFiles)
-        else if not (not OverWriteFiles and FileExists(TargetDir + SR.Name))
-          then
-            begin
-                  CopyFile2(Pchar(SourceDir + SR.Name), Pchar(TargetDir + SR.Name));
-                  Synchronize(updateprogress);
-            end
-        else
-          Result := True;
-        if not Result and StopIfNotAllCopied then
-          exit;
-      end;
-      I := FindNext(SR);
-    end;
-  finally
-    SysUtils.FindClose(SR);
-  end;
-end;
 
 function GetFileNum(SourceDir:string): Integer;
 var
@@ -312,8 +318,11 @@ begin
 end;
 procedure TMovethread.Execute;
 var
-  I,k: Integer;
+  I,k: Integer;s:string;
   begin
+
+
+
 k:=0;   mainform.memo1.Clear;
             mainform.memo1.Lines.Add('Лог копирования');
        for i:=0 to length(masp)-1  do
@@ -338,7 +347,7 @@ k:=0;   mainform.memo1.Clear;
 
  if  masp[i].priznakefile then  begin
    __CopyFile((masp[i].SourceDir), (masp[i].TargetDir))  ;
-    Synchronize(updateprogress);
+   // Synchronize(updateprogress);
 
  end
 
@@ -351,12 +360,16 @@ k:=0;   mainform.memo1.Clear;
    MainUnit.MainForm.StatusBar1.Panels[0].Text:='';
   MainUnit.MainForm.ProgressBar1.Position:=0;
   MainForm.AddFile(MainForm.rDirectoryLabel.Caption + '*.*', faAnyFile,MainForm.ListView2,MainForm.rDirectoryLabel);
+  s:=  MainForm.rDirectoryLabel.Caption ;
+  MainForm.OutDiskInfo(s[1],MainForm.rLvsego,MainForm.rlZanyato,MainForm.rlFree);
   end;
     if panel='R' then
   begin
    MainUnit.MainForm.StatusBar2.Panels[0].Text:='';
   MainUnit.MainForm.ProgressBar2.Position:=0;
 MainForm.AddFile(MainForm.lDirectoryLabel.Caption + '*.*', faAnyFile,MainForm.ListView1,MainForm.lDirectoryLabel);
+  s:=  MainForm.lDirectoryLabel.Caption ;
+  MainForm.OutDiskInfo(s[1],MainForm.lLvsego,MainForm.LlZanyato,MainForm.LlFree);
  end;
 
 end;

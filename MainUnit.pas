@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, ComCtrls, shellapi, ExtCtrls,MoveThds, Menus,Addingfiles,ComObj,PsApi,analysisfiles;
+  Dialogs, StdCtrls, Buttons, ComCtrls, shellapi,
+  ExtCtrls,MoveThds, Menus,Addingfiles,ComObj,PsApi,analysisfiles,Analysisthds;
  type maspath= record
      SourceDir:   string;
      TargetDir: string[255];
@@ -99,15 +100,15 @@ type
     N10: TMenuItem;
     N11: TMenuItem;
     Button12: TButton;
-    Timer1: TTimer;
     btn_refresh: TBitBtn;
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
     Button13: TButton;
     ProgressBar4: TProgressBar;
-    Button14: TButton;
-    Button15: TButton;
-    Button16: TButton;
+    Button9: TButton;
+    SaveDialog1: TSaveDialog;
+    Button10: TButton;
+    N12: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure DirUpButtonClick(Sender: TObject);
     procedure ListView1Click(Sender: TObject);
@@ -136,6 +137,7 @@ type
     procedure Button8Click(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    function proverkaRejimaKop (var reg:integer): boolean;
 
 
     function proverkaPath  ( mas:smaspath;path:string;var index:longint): Boolean;
@@ -148,7 +150,7 @@ type
     procedure N11Click(Sender: TObject);
     procedure N10Click(Sender: TObject);
     procedure Button12Click(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
+
     procedure btn_refreshClick(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
@@ -156,6 +158,11 @@ type
     procedure Button14Click(Sender: TObject);
     procedure Button15Click(Sender: TObject);
     procedure Button16Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button9Click(Sender: TObject);
+    procedure Button10Click(Sender: TObject);
+    procedure Button17Click(Sender: TObject);
+    procedure N12Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -167,6 +174,7 @@ type
       ThreadCopy :TMoveThread;
       ThreadAddFile :TAddingfiles;
       exempanalysisfiles :Tanalysisfiles;
+       exempAnalysisthds :TAnalysisthds;
       SourceDir, TargetDir:String;
       CurrentPid: DWORD;
       AdvDataLen: Integer;
@@ -174,6 +182,9 @@ type
       _maspath:smaspath;
       flaganaliza,flaginsertfiles:boolean;
     { Public declarations }
+    buf: array[0..511] of byte;
+  sectorsize: integer;
+  modecopy:integer;
   end;
 
 var
@@ -182,7 +193,7 @@ var
 
 implementation
 
-uses   UnitAbout;//,dos;//,  ;
+uses   UnitAbout, UnitFormQuestion;//,dos;//,  ;
 
 
 
@@ -305,6 +316,33 @@ begin
       end;
 
 end;
+
+
+function __Mul(a,b: DWORD; var HiDWORD: DWORD): DWORD; // Result = LoDWORD
+  asm
+    mul edx
+    mov [ecx],edx
+  end;
+
+
+function ReadSectors(StartingSector, SectorCount: DWORD; // читает сектор, возвращает число прочитанных байт
+  Buffer: Pointer; BytesPerSector: DWORD = 512): DWORD;
+var
+  hFile: THandle;
+  br,TmpLo,TmpHi: DWORD;
+begin
+  Result := 0;
+  hFile := CreateFile(PChar('\\.\'+copy(mainform.ComboBox1.Text,1,2)),
+    GENERIC_READ,FILE_SHARE_READ,nil,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,0);
+  if hFile = INVALID_HANDLE_VALUE then Exit;
+  TmpLo := __Mul(StartingSector,BytesPerSector,TmpHi);
+  if SetFilePointer(hFile,TmpLo,@TmpHi,FILE_BEGIN) = TmpLo then
+  begin
+    SectorCount := SectorCount*BytesPerSector;
+    if ReadFile(hFile,Buffer^,SectorCount,br,nil) then Result := br;
+  end;
+  CloseHandle(hFile);
+end;
  //при создании формы
 procedure TMainForm.FormCreate(Sender: TObject);
 var
@@ -313,15 +351,17 @@ var
   var s:string;
 begin
   flagcombo1:=false;
+  modecopy:=-1;
   lcountfiles.caption:='0';
   flaganaliza :=false;
   flaginsertfiles:=false;
   getfizdrive(combobox1);
   combobox1.ItemIndex:=0;
   getdir(0,mydir);  //получаем директорию
+  savedialog1.InitialDir:=mydir;
   memo1.Clear;
   memo2.Clear;
-  Label5.Caption:='Данное двухпоточное приложение, выполняет следующие операции:'+chr(13)+
+  Label5.Caption:='Данное многопоточное приложение, выполняет следующие операции:'+chr(13)+
                   '1. Физическое копирование содержимого каталожной структуры с одного логического диска на другой. '+chr(13)+
                   '2. Анализ расположения по отрезкам группы файлов на логическом диске.';
   LDirectoryLabel.Caption:=combobox1.Text;
@@ -568,6 +608,21 @@ var
  s : string; i:integer;
   lfree_size, ltotal_size,rfree_size, rtotal_size:int64;
 begin
+s:=(GetEnvironmentVariable('SystemDrive' ));
+  if (AnsiUpperCase  (copy(s,1,1)) =   AnsiUpperCase  (copy(LDirectoryLabel.Caption ,1,1))) or
+       (AnsiUpperCase  (copy(s,1,1)) =   AnsiUpperCase  (copy(rDirectoryLabel.Caption ,1,1)))
+    then  //2 Проверка системного диска
+          begin
+              showmessage('Данная программа учебная. Операции с файлами  системного диска запрещены');
+              exit;
+          end;
+if not proverkaRejimaKop(modecopy) then
+
+       begin
+      showmessage ('Не выбрано действие при совпадение имен файлов (Меню Режим копирования -> Выбор действия при совпадении имен файлов). Копирование отменено');
+      exit;
+      end;
+
   if LDirectoryLabel.Caption=RDirectoryLabel.Caption then
     begin
         showmessage('Нельзя скопировать файл сам в себя');
@@ -603,6 +658,7 @@ begin
         targetdirchosen:=true;
         TargetDir:=RDirectoryLabel.Caption;
         sourcedirchosen:=true;
+
         ThreadCopy:=TMoveThread.Create(SourceDir,TargetDir,'L', false, true,priznakfile);
         exit;
      end;
@@ -629,6 +685,7 @@ begin
          then
             begin
                 SourceDir:=LDirectoryLabel.Caption;
+               
                 ThreadCopy:=TMoveThread.Create(SourceDir,TargetDir,'L', false, true,priznakfile);
             end
          else             exit;
@@ -641,6 +698,20 @@ var
  s : string;    i:integer;
    lfree_size, ltotal_size,rfree_size, rtotal_size:int64;
 begin
+s:=(GetEnvironmentVariable('SystemDrive' ));
+  if ((AnsiUpperCase  (copy(s,1,1)) =   AnsiUpperCase  (copy(LDirectoryLabel.Caption ,1,1))) or
+       (AnsiUpperCase  (copy(s,1,1)) =   AnsiUpperCase  (copy(rDirectoryLabel.Caption ,1,1))) )
+    then  //2 Проверка системного диска
+          begin
+              showmessage('Данная программа учебная. Операции с файлами  системного диска запрещены');
+              exit;
+          end;
+if not proverkaRejimaKop(modecopy) then
+
+       begin
+      showmessage ('Не выбрано действие при совпадение имен файлов (Меню Режим копирования -> Выбор действия при совпадении имен файлов). Копирование отменено');
+      exit;
+      end;
  if LDirectoryLabel.Caption=RDirectoryLabel.Caption then
     begin
         showmessage('Нельзя скопировать файл сам в себя');
@@ -739,6 +810,13 @@ begin
               AddFile(rDirectoryLabel.Caption + '*.*', faAnyFile,MainForm.ListView2,MainForm.rDirectoryLabel);
         if lDirectoryLabel.Caption =lDirectoryLabel2.Caption then
               AddFile(lDirectoryLabel2.Caption + '*.*', faAnyFile,MainForm.ListView3,MainForm.lDirectoryLabel2);
+              
+               s:=  MainForm.rDirectoryLabel.Caption ;
+  MainForm.OutDiskInfo(s[1],MainForm.rLvsego,MainForm.rlZanyato,MainForm.rlFree);
+   s:=  MainForm.lDirectoryLabel.Caption ;
+  MainForm.OutDiskInfo(s[1],MainForm.lLvsego,MainForm.llZanyato,MainForm.llFree);
+   s:=  MainForm.lDirectoryLabel2.Caption ;
+  MainForm.OutDiskInfo(s[1],MainForm.lvsego2,MainForm.lZanyato2,MainForm.llFree2);
     end;
  end;
 
@@ -804,9 +882,18 @@ begin
                   end;
               AddFile(rDirectoryLabel.Caption + '*.*', faAnyFile,MainForm.ListView2,MainForm.rDirectoryLabel);
               if rDirectoryLabel.Caption =rDirectoryLabel.Caption then
+
               AddFile(lDirectoryLabel.Caption + '*.*', faAnyFile,MainForm.ListView1,MainForm.lDirectoryLabel);
               if rDirectoryLabel.Caption =lDirectoryLabel2.Caption then
               AddFile(lDirectoryLabel2.Caption + '*.*', faAnyFile,MainForm.ListView3,MainForm.lDirectoryLabel2);
+
+
+               s:=  MainForm.rDirectoryLabel.Caption ;
+  MainForm.OutDiskInfo(s[1],MainForm.rLvsego,MainForm.rlZanyato,MainForm.rlFree);
+   s:=  MainForm.lDirectoryLabel.Caption ;
+  MainForm.OutDiskInfo(s[1],MainForm.lLvsego,MainForm.llZanyato,MainForm.llFree);
+   s:=  MainForm.lDirectoryLabel2.Caption ;
+  MainForm.OutDiskInfo(s[1],MainForm.lvsego2,MainForm.lZanyato2,MainForm.llFree2);
        end;
 end;
 
@@ -893,7 +980,7 @@ procedure TMainForm.Button8Click(Sender: TObject);
 var
   s : string; i:integer;
 begin
-  if flaganaliza    then
+  if flaganaliza    then // 1 проверка на наличие запущенного потока анализа
     begin
       Showmessage('Идет анализ файлов. Подождите конца операции');
       exit;
@@ -901,20 +988,20 @@ begin
   flaginsertfiles :=true;
   s:=(GetEnvironmentVariable('SystemDrive' ));
   if (AnsiUpperCase  (copy(s,1,1)) =   AnsiUpperCase  (copy(LDirectoryLabel2.Caption ,1,1)))
-    then
+    then  //2 Проверка системного диска
           begin
               showmessage('Данная программа учебная. Операции с файлами  системного диска запрещены');
               exit;
           end;
-    if (ListView3.Selected <> NIL) then
+    if (ListView3.Selected <> NIL) then  // 3 проверка выбора файлов
       begin
         targetdirchosen:=true;
         sourcedirchosen:=true;
         SourceDir:=lDirectoryLabel2.Caption;
         TargetDir:=lDirectoryLabel2.Caption;
         setlength(masp2,0);
-        for i := 0 to ListView3.Items.Count - 1 do
-           if ListView3.Items[i].Selected then
+        for i := 0 to ListView3.Items.Count - 1 do // 4 начало цикла добавления
+           if ListView3.Items[i].Selected then  //5 если файл выбран
               begin
                 setlength(masp2,length(masp2)+1);
                 masp2[length(masp2)-1].SourceDir:= LDirectoryLabel2.Caption + ListView3.Items[i].Caption;
@@ -923,11 +1010,11 @@ begin
               end;
 
           if MessageDlg('Добавить выбранные файлы в список?', mtConfirmation, [mbYes, mbNo], 0) = mrYes
-            then ThreadAddFile :=TAddingfiles.Create(SourceDir)
+            then ThreadAddFile :=TAddingfiles.Create(SourceDir) // 6 запрос пользователя
             else  exit;
       end
-  else    ShowMessage( 'Нет выбранных файлов')  ;
-       
+  else    ShowMessage( 'Нет выбранных файлов')  ;  //7 отказ от добавления
+
 end  ;
 
 procedure TMainForm.ComboBox3Change(Sender: TObject);
@@ -963,7 +1050,8 @@ begin
       end;
    flaganaliza   :=true;
    ProgressBar4.Max:=length(_maspath);
-   exempanalysisfiles :=Tanalysisfiles.Create();
+  // exempanalysisfiles :=Tanalysisfiles.Create();
+   exempAnalysisthds :=TAnalysisthds.Create();
 end;
 
   //*********************
@@ -1105,12 +1193,7 @@ end;
 
 end;
 
-procedure TMainForm.Timer1Timer(Sender: TObject);
-begin
-  AddFile(LDirectoryLabel2.Caption + '*.*', faAnyFile,ListView3,lDirectoryLabel2);
-    AddFile(LDirectoryLabel.Caption + '*.*', faAnyFile,ListView1,lDirectoryLabel);
-      AddFile(rDirectoryLabel.Caption + '*.*', faAnyFile,ListView2,rDirectoryLabel);
-end;
+
 
 procedure TMainForm.btn_refreshClick(Sender: TObject);
 begin
@@ -1162,6 +1245,91 @@ exempanalysisfiles.Free; // Убиваем объект потока.
 progressbar4.Position:=0;
 flaganaliza:=false;
 end;
+end;
+
+procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
+var i:integer;
+begin
+{for i:=0 to 25 do      // вызывать перед закрытием приложения для всех ненулевых элементов
+if Analysisthds.pcontext[i]<>nil
+  then Analysisthds.FreeNTFSContext(Analysisthds.pcontext[i]);}
+   
+  if exempAnalysisthds<>nil
+then
+begin
+
+exempAnalysisthds.Terminate; // Советуем потоку завершиться
+exempAnalysisthds.WaitFor;// Ждем окончания функции Execute.
+exempAnalysisthds.Free; // Убиваем объект потока.
+end;
+
+  if ThreadAddFile<>nil
+then
+ begin
+
+ThreadAddFile.Terminate; // Советуем потоку завершиться
+ThreadAddFile.WaitFor;// Ждем окончания функции Execute.
+ThreadAddFile.Free; // Убиваем объект потока.
+end;
+
+ if ThreadCopy<>nil
+then
+ begin
+
+ThreadCopy.Terminate; // Советуем потоку завершиться
+ThreadCopy.WaitFor;// Ждем окончания функции Execute.
+ThreadCopy.Free; // Убиваем объект потока.
+end;
+
+exempAnalysisthds.clearcontext;
+
+
+ //
+end;
+
+procedure TMainForm.Button9Click(Sender: TObject);
+begin
+if SaveDialog1.Execute() then
+  begin
+   if FileExists(SaveDialog1.FileName) then
+    if MessageDlg(Format('Перезаписать файл %s ?', [SaveDialog1.FileName]),
+        mtConfirmation, mbYesNoCancel, 0) <> idYes then Exit;
+
+   Memo2.Lines.SaveToFile(SaveDialog1.FileName);
+  end;
+end;
+
+procedure TMainForm.Button10Click(Sender: TObject);
+begin
+if SaveDialog1.Execute() then
+  begin
+   if FileExists(SaveDialog1.FileName) then
+    if MessageDlg(Format('Перезаписать файл %s ?', [SaveDialog1.FileName]),
+        mtConfirmation, mbYesNoCancel, 0) <> idYes then Exit;
+
+   Memo1.Lines.SaveToFile(SaveDialog1.FileName);
+  end;
+end;
+
+procedure TMainForm.Button17Click(Sender: TObject);
+begin
+ReadSectors(0,1,@buf[0]);
+  sectorsize:=buf[12]*256 + buf[11];
+  showmessage('Размер сектора = ' + inttostr(sectorsize) + ' байт');
+end;
+
+procedure TMainForm.N12Click(Sender: TObject);
+begin
+formquestion.ShowModal;
+end;
+
+function TMainForm.proverkaRejimaKop(var reg: integer): boolean;
+begin
+if reg=-1 then     formquestion.ShowModal;
+
+   if reg=-1 then    proverkaRejimaKop:=false else  proverkaRejimaKop:=true;
+
+
 end;
 
 end.

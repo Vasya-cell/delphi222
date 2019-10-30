@@ -1,34 +1,35 @@
 object MainForm: TMainForm
-  Left = 299
-  Top = 136
+  Left = 312
+  Top = 171
   Width = 1279
   Height = 840
-  Caption = #1055#1088#1080#1083#1086#1078#1077#1085#1080#1077' '#1076#1083#1103' '#1088#1072#1073#1086#1090#1099' '#1089' '#1092#1072#1081#1083#1072#1084#1080
+  Caption = #1040#1085#1072#1083#1080#1079#1072#1090#1086#1088' '#1088#1072#1089#1087#1086#1083#1086#1078#1077#1085#1080#1103' '#1092#1072#1081#1083#1086#1074' '#1085#1072' '#1076#1080#1089#1082#1077
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -14
+  Font.Height = -17
   Font.Name = 'Tahoma'
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
   Position = poScreenCenter
   WindowState = wsMaximized
+  OnClose = FormClose
   OnCreate = FormCreate
-  PixelsPerInch = 96
-  TextHeight = 17
+  PixelsPerInch = 120
+  TextHeight = 21
   object Panel5: TPanel
     Left = 0
     Top = 0
-    Width = 1263
-    Height = 66
+    Width = 1261
+    Height = 81
     Align = alTop
     TabOrder = 0
     object Label5: TLabel
-      Left = 150
+      Left = 185
       Top = 1
-      Width = 1112
-      Height = 64
+      Width = 1075
+      Height = 79
       Align = alClient
       Alignment = taCenter
       AutoSize = False
@@ -38,8 +39,8 @@ object MainForm: TMainForm
     object RadioGroup1: TRadioGroup
       Left = 1
       Top = 1
-      Width = 149
-      Height = 64
+      Width = 184
+      Height = 79
       Align = alLeft
       Caption = #1056#1077#1078#1080#1084' '#1082#1086#1087#1080#1088#1086#1074#1072#1085#1080#1103
       Items.Strings = (
@@ -51,48 +52,47 @@ object MainForm: TMainForm
   end
   object PageControl1: TPageControl
     Left = 0
-    Top = 66
-    Width = 1263
-    Height = 715
-    ActivePage = TabSheet2
+    Top = 81
+    Width = 1261
+    Height = 683
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 1
     object TabSheet1: TTabSheet
       Caption = #1050#1086#1087#1080#1088#1086#1074#1072#1085#1080#1077
       object Splitter3: TSplitter
-        Left = 600
+        Left = 666
         Top = 0
-        Height = 683
+        Height = 647
       end
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 600
-        Height = 683
+        Width = 666
+        Height = 647
         Align = alLeft
         Caption = 'Panel2'
         Constraints.MinWidth = 600
         TabOrder = 0
         object Splitter1: TSplitter
-          Left = 301
+          Left = 362
           Top = 1
-          Width = 2
-          Height = 681
+          Height = 645
         end
         object Panel3: TPanel
           Left = 1
           Top = 1
-          Width = 300
-          Height = 681
+          Width = 361
+          Height = 645
           Align = alLeft
           Caption = 'Panel3'
           Constraints.MinWidth = 300
           TabOrder = 0
           object ListView1: TListView
             Left = 1
-            Top = 85
-            Width = 298
-            Height = 548
+            Top = 105
+            Width = 359
+            Height = 488
             Align = alClient
             Columns = <>
             MultiSelect = True
@@ -105,96 +105,96 @@ object MainForm: TMainForm
           object Panel1: TPanel
             Left = 1
             Top = 1
-            Width = 298
-            Height = 84
+            Width = 359
+            Height = 104
             Align = alTop
             TabOrder = 1
             object Label1: TLabel
-              Left = 89
-              Top = 9
-              Width = 32
-              Height = 17
+              Left = 110
+              Top = 11
+              Width = 38
+              Height = 21
               Caption = #1044#1080#1089#1082
             end
             object LDirectoryLabel: TLabel
               Left = 1
-              Top = 65
-              Width = 296
-              Height = 18
+              Top = 82
+              Width = 357
+              Height = 21
               Align = alBottom
               Caption = 'LDirectoryLabel'
               Color = clWhite
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
-              Font.Height = -15
+              Font.Height = -17
               Font.Name = 'Tahoma'
               Font.Style = [fsBold]
               ParentColor = False
               ParentFont = False
             end
             object LLvsego: TLabel
-              Left = 168
-              Top = 6
-              Width = 41
-              Height = 17
+              Left = 208
+              Top = 8
+              Width = 49
+              Height = 21
               Caption = #1042#1089#1077#1075#1086':'
             end
             object LLZanyato: TLabel
-              Left = 168
-              Top = 26
-              Width = 50
-              Height = 17
+              Left = 208
+              Top = 32
+              Width = 60
+              Height = 21
               Caption = #1047#1072#1085#1103#1090#1086':'
             end
             object LLFree: TLabel
-              Left = 168
-              Top = 45
-              Width = 69
-              Height = 17
+              Left = 208
+              Top = 56
+              Width = 80
+              Height = 21
               Caption = #1057#1074#1086#1073#1086#1076#1085#1086':'
             end
             object DirUpButton: TButton
-              Left = 28
-              Top = 6
-              Width = 59
-              Height = 21
+              Left = 34
+              Top = 8
+              Width = 73
+              Height = 25
               Caption = #1053#1072#1079#1072#1076
               TabOrder = 0
               OnClick = DirUpButtonClick
             end
             object ComboBox1: TComboBox
-              Left = 121
-              Top = 6
-              Width = 47
-              Height = 25
+              Left = 150
+              Top = 8
+              Width = 57
+              Height = 29
               Style = csDropDownList
-              ItemHeight = 17
+              ItemHeight = 21
               TabOrder = 1
               OnChange = ComboBox1Change
             end
             object Button2: TButton
-              Left = 6
-              Top = 40
-              Width = 85
-              Height = 21
+              Left = 8
+              Top = 50
+              Width = 105
+              Height = 25
               Caption = #1050#1086#1087#1080#1088#1086#1074#1072#1090#1100
               TabOrder = 2
               OnClick = Button2Click
             end
             object Button4: TButton
-              Left = 97
-              Top = 40
-              Width = 66
-              Height = 21
+              Left = 120
+              Top = 50
+              Width = 81
+              Height = 25
               Caption = #1059#1076#1072#1083#1080#1090#1100
               TabOrder = 3
               OnClick = Button4Click
             end
             object btn_refresh: TBitBtn
-              Left = 2
-              Top = 6
-              Width = 25
-              Height = 27
+              Left = 3
+              Top = 7
+              Width = 30
+              Height = 34
               TabOrder = 4
               OnClick = btn_refreshClick
               Glyph.Data = {
@@ -267,8 +267,8 @@ object MainForm: TMainForm
           end
           object StatusBar1: TStatusBar
             Left = 1
-            Top = 650
-            Width = 298
+            Top = 614
+            Width = 359
             Height = 30
             Panels = <
               item
@@ -278,26 +278,26 @@ object MainForm: TMainForm
           end
           object ProgressBar1: TProgressBar
             Left = 1
-            Top = 633
-            Width = 298
-            Height = 17
+            Top = 593
+            Width = 359
+            Height = 21
             Align = alBottom
             TabOrder = 3
           end
         end
         object Panel4: TPanel
-          Left = 303
+          Left = 365
           Top = 1
-          Width = 296
-          Height = 681
+          Width = 300
+          Height = 645
           Align = alClient
           Caption = 'Panel4'
           Constraints.MinWidth = 300
           TabOrder = 1
           object StatusBar2: TStatusBar
             Left = 1
-            Top = 650
-            Width = 294
+            Top = 614
+            Width = 298
             Height = 30
             Panels = <
               item
@@ -308,96 +308,96 @@ object MainForm: TMainForm
           object Panel7: TPanel
             Left = 1
             Top = 1
-            Width = 294
-            Height = 84
+            Width = 298
+            Height = 104
             Align = alTop
             TabOrder = 1
             object Label2: TLabel
-              Left = 89
-              Top = 9
-              Width = 32
-              Height = 17
+              Left = 110
+              Top = 11
+              Width = 38
+              Height = 21
               Caption = #1044#1080#1089#1082
             end
             object RDirectoryLabel: TLabel
               Left = 1
-              Top = 65
-              Width = 292
-              Height = 18
+              Top = 82
+              Width = 296
+              Height = 21
               Align = alBottom
               Caption = 'rDirectoryLabel'
               Color = clWhite
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
-              Font.Height = -15
+              Font.Height = -17
               Font.Name = 'Tahoma'
               Font.Style = [fsBold]
               ParentColor = False
               ParentFont = False
             end
             object RLVsego: TLabel
-              Left = 168
-              Top = 6
-              Width = 41
-              Height = 17
+              Left = 208
+              Top = 8
+              Width = 49
+              Height = 21
               Caption = #1042#1089#1077#1075#1086':'
             end
             object RLZanyato: TLabel
-              Left = 168
-              Top = 26
-              Width = 50
-              Height = 17
+              Left = 208
+              Top = 32
+              Width = 60
+              Height = 21
               Caption = #1047#1072#1085#1103#1090#1086':'
             end
             object RLFree: TLabel
-              Left = 168
-              Top = 45
-              Width = 69
-              Height = 17
+              Left = 208
+              Top = 56
+              Width = 80
+              Height = 21
               Caption = #1057#1074#1086#1073#1086#1076#1085#1086':'
             end
             object Button1: TButton
-              Left = 28
-              Top = 6
-              Width = 59
-              Height = 21
+              Left = 34
+              Top = 8
+              Width = 73
+              Height = 25
               Caption = #1053#1072#1079#1072#1076
               TabOrder = 0
               OnClick = Button1Click
             end
             object ComboBox2: TComboBox
-              Left = 121
-              Top = 6
-              Width = 47
-              Height = 25
+              Left = 150
+              Top = 8
+              Width = 57
+              Height = 29
               Style = csDropDownList
-              ItemHeight = 17
+              ItemHeight = 21
               TabOrder = 1
               OnChange = ComboBox2Change
             end
             object Button3: TButton
-              Left = 6
-              Top = 40
-              Width = 85
-              Height = 21
+              Left = 8
+              Top = 50
+              Width = 105
+              Height = 25
               Caption = #1050#1086#1087#1080#1088#1086#1074#1072#1090#1100
               TabOrder = 2
               OnClick = Button3Click
             end
             object Button5: TButton
-              Left = 97
-              Top = 40
-              Width = 66
-              Height = 21
+              Left = 120
+              Top = 50
+              Width = 81
+              Height = 25
               Caption = #1059#1076#1072#1083#1080#1090#1100
               TabOrder = 3
               OnClick = Button5Click
             end
             object BitBtn2: TBitBtn
-              Left = 2
-              Top = 6
-              Width = 25
-              Height = 27
+              Left = 3
+              Top = 7
+              Width = 30
+              Height = 34
               TabOrder = 4
               OnClick = BitBtn2Click
               Glyph.Data = {
@@ -470,9 +470,9 @@ object MainForm: TMainForm
           end
           object ListView2: TListView
             Left = 1
-            Top = 85
-            Width = 294
-            Height = 548
+            Top = 105
+            Width = 298
+            Height = 488
             Align = alClient
             Columns = <>
             MultiSelect = True
@@ -484,19 +484,19 @@ object MainForm: TMainForm
           end
           object ProgressBar2: TProgressBar
             Left = 1
-            Top = 633
-            Width = 294
-            Height = 17
+            Top = 593
+            Width = 298
+            Height = 21
             Align = alBottom
             TabOrder = 3
           end
         end
       end
       object Panel16: TPanel
-        Left = 603
+        Left = 669
         Top = 0
-        Width = 652
-        Height = 683
+        Width = 584
+        Height = 647
         Align = alClient
         Caption = 'Panel16'
         Constraints.MinHeight = 300
@@ -505,25 +505,34 @@ object MainForm: TMainForm
         object Panel8: TPanel
           Left = 1
           Top = 1
-          Width = 650
-          Height = 33
+          Width = 582
+          Height = 41
           Align = alTop
           TabOrder = 0
           object Button6: TButton
-            Left = 6
-            Top = 6
-            Width = 87
-            Height = 21
+            Left = 8
+            Top = 8
+            Width = 107
+            Height = 25
             Caption = #1054#1095#1080#1089#1090#1080#1090#1100
             TabOrder = 0
             OnClick = Button6Click
           end
+          object Button10: TButton
+            Left = 128
+            Top = 8
+            Width = 169
+            Height = 25
+            Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074' '#1092#1072#1081#1083
+            TabOrder = 1
+            OnClick = Button10Click
+          end
         end
         object Memo1: TMemo
           Left = 1
-          Top = 34
-          Width = 650
-          Height = 648
+          Top = 42
+          Width = 582
+          Height = 604
           Align = alClient
           Lines.Strings = (
             'Memo1')
@@ -537,25 +546,25 @@ object MainForm: TMainForm
       Caption = #1040#1085#1072#1083#1080#1079
       ImageIndex = 1
       object Splitter4: TSplitter
-        Left = 253
+        Left = 313
         Top = 0
-        Height = 683
+        Height = 647
         MinSize = 300
       end
       object Panel9: TPanel
         Left = 0
         Top = 0
-        Width = 253
-        Height = 683
+        Width = 313
+        Height = 647
         Align = alLeft
         Caption = 'Panel3'
-        Constraints.MinWidth = 253
+        Constraints.MinWidth = 300
         TabOrder = 0
         object ListView3: TListView
           Left = 1
-          Top = 85
-          Width = 251
-          Height = 550
+          Top = 105
+          Width = 311
+          Height = 490
           Align = alClient
           Columns = <>
           MultiSelect = True
@@ -568,87 +577,87 @@ object MainForm: TMainForm
         object Panel10: TPanel
           Left = 1
           Top = 1
-          Width = 251
-          Height = 84
+          Width = 311
+          Height = 104
           Align = alTop
           TabOrder = 1
           object Label3: TLabel
-            Left = 89
-            Top = 9
-            Width = 32
-            Height = 17
+            Left = 110
+            Top = 11
+            Width = 38
+            Height = 21
             Caption = #1044#1080#1089#1082
           end
           object LDirectoryLabel2: TLabel
             Left = 1
-            Top = 65
-            Width = 249
-            Height = 18
+            Top = 82
+            Width = 309
+            Height = 21
             Align = alBottom
             Caption = 'LDirectoryLabel2'
             Color = clWhite
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -15
+            Font.Height = -17
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentColor = False
             ParentFont = False
           end
           object Lvsego2: TLabel
-            Left = 168
-            Top = 6
-            Width = 41
-            Height = 17
+            Left = 208
+            Top = 8
+            Width = 49
+            Height = 21
             Caption = #1042#1089#1077#1075#1086':'
           end
           object LZanyato2: TLabel
-            Left = 168
-            Top = 26
-            Width = 50
-            Height = 17
+            Left = 208
+            Top = 32
+            Width = 60
+            Height = 21
             Caption = #1047#1072#1085#1103#1090#1086':'
           end
           object LLFREE2: TLabel
-            Left = 168
-            Top = 45
-            Width = 69
-            Height = 17
+            Left = 208
+            Top = 56
+            Width = 80
+            Height = 21
             Caption = #1057#1074#1086#1073#1086#1076#1085#1086':'
           end
           object Button7: TButton
-            Left = 28
-            Top = 6
-            Width = 59
-            Height = 21
+            Left = 34
+            Top = 8
+            Width = 73
+            Height = 25
             Caption = #1053#1072#1079#1072#1076
             TabOrder = 0
             OnClick = Button7Click
           end
           object ComboBox3: TComboBox
-            Left = 121
-            Top = 6
-            Width = 47
-            Height = 25
+            Left = 150
+            Top = 8
+            Width = 57
+            Height = 29
             Style = csDropDownList
-            ItemHeight = 17
+            ItemHeight = 21
             TabOrder = 1
             OnChange = ComboBox3Change
           end
           object Button8: TButton
-            Left = 6
-            Top = 40
-            Width = 144
-            Height = 21
+            Left = 8
+            Top = 50
+            Width = 177
+            Height = 25
             Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1092#1072#1081#1083#1099
             TabOrder = 2
             OnClick = Button8Click
           end
           object BitBtn3: TBitBtn
-            Left = 2
-            Top = 6
-            Width = 25
-            Height = 27
+            Left = 3
+            Top = 7
+            Width = 30
+            Height = 34
             TabOrder = 3
             OnClick = BitBtn3Click
             Glyph.Data = {
@@ -721,8 +730,8 @@ object MainForm: TMainForm
         end
         object StatusBar3: TStatusBar
           Left = 1
-          Top = 652
-          Width = 251
+          Top = 616
+          Width = 311
           Height = 30
           Panels = <
             item
@@ -732,31 +741,31 @@ object MainForm: TMainForm
         end
         object ProgressBar3: TProgressBar
           Left = 1
-          Top = 635
-          Width = 251
-          Height = 17
+          Top = 595
+          Width = 311
+          Height = 21
           Align = alBottom
           TabOrder = 3
         end
       end
       object Panel15: TPanel
-        Left = 256
+        Left = 316
         Top = 0
-        Width = 999
-        Height = 683
+        Width = 937
+        Height = 647
         Align = alClient
         Caption = 'Panel15'
         TabOrder = 1
         object Splitter2: TSplitter
-          Left = 364
+          Left = 450
           Top = 1
-          Height = 681
+          Height = 645
         end
         object Panel11: TPanel
           Left = 1
           Top = 1
-          Width = 363
-          Height = 681
+          Width = 449
+          Height = 645
           Align = alLeft
           Caption = 'Panel11'
           Constraints.MinWidth = 250
@@ -764,38 +773,38 @@ object MainForm: TMainForm
           object Panel12: TPanel
             Left = 1
             Top = 1
-            Width = 361
-            Height = 58
+            Width = 447
+            Height = 72
             Align = alTop
             TabOrder = 0
             object Label4: TLabel
-              Left = 136
-              Top = 6
-              Width = 112
-              Height = 17
+              Left = 168
+              Top = 8
+              Width = 137
+              Height = 21
               Caption = #1060#1072#1081#1083#1086#1074' '#1074' '#1089#1087#1080#1089#1082#1077':'
             end
             object Lcountfiles: TLabel
-              Left = 155
-              Top = 26
-              Width = 64
-              Height = 17
+              Left = 192
+              Top = 32
+              Width = 79
+              Height = 21
               Caption = 'Lcountfiles'
             end
             object Button11: TButton
-              Left = 6
-              Top = 6
-              Width = 85
-              Height = 21
+              Left = 8
+              Top = 8
+              Width = 105
+              Height = 25
               Caption = #1054#1095#1080#1089#1090#1080#1090#1100
               TabOrder = 0
               OnClick = Button11Click
             end
             object Button12: TButton
-              Left = 6
-              Top = 32
-              Width = 131
-              Height = 21
+              Left = 8
+              Top = 40
+              Width = 161
+              Height = 25
               Caption = #1059#1076#1072#1083#1080#1090#1100' '#1080#1079' '#1089#1087#1080#1089#1082#1072
               TabOrder = 1
               OnClick = Button12Click
@@ -803,20 +812,20 @@ object MainForm: TMainForm
           end
           object ListBox1: TListBox
             Left = 1
-            Top = 59
-            Width = 361
-            Height = 621
+            Top = 73
+            Width = 447
+            Height = 571
             Align = alClient
-            ItemHeight = 17
+            ItemHeight = 21
             MultiSelect = True
             TabOrder = 1
           end
         end
         object Panel13: TPanel
-          Left = 367
+          Left = 453
           Top = 1
-          Width = 631
-          Height = 681
+          Width = 483
+          Height = 645
           Align = alClient
           Caption = 'Panel13'
           Constraints.MinWidth = 330
@@ -824,61 +833,43 @@ object MainForm: TMainForm
           object Panel14: TPanel
             Left = 1
             Top = 1
-            Width = 629
-            Height = 58
+            Width = 481
+            Height = 72
             Align = alTop
             TabOrder = 0
             object BitBtn1: TBitBtn
               Left = 0
-              Top = 6
-              Width = 98
-              Height = 21
+              Top = 8
+              Width = 121
+              Height = 25
               Caption = #1040#1085#1072#1083#1080#1079
               TabOrder = 0
               OnClick = BitBtn1Click
             end
             object Button13: TButton
-              Left = 194
-              Top = 6
-              Width = 72
-              Height = 21
+              Left = 0
+              Top = 40
+              Width = 121
+              Height = 25
               Caption = #1054#1095#1080#1089#1090#1080#1090#1100
               TabOrder = 1
               OnClick = Button13Click
             end
-            object Button14: TButton
-              Left = 0
-              Top = 32
-              Width = 98
-              Height = 21
-              Caption = #1055#1088#1080#1086#1089#1090#1072#1085#1086#1074#1080#1090#1100
+            object Button9: TButton
+              Left = 128
+              Top = 8
+              Width = 169
+              Height = 25
+              Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074' '#1092#1072#1081#1083
               TabOrder = 2
-              OnClick = Button14Click
-            end
-            object Button15: TButton
-              Left = 104
-              Top = 32
-              Width = 85
-              Height = 21
-              Caption = #1047#1072#1087#1091#1089#1090#1080#1090#1100
-              TabOrder = 3
-              OnClick = Button15Click
-            end
-            object Button16: TButton
-              Left = 104
-              Top = 6
-              Width = 85
-              Height = 21
-              Caption = #1047#1072#1074#1077#1088#1096#1080#1090#1100
-              TabOrder = 4
-              OnClick = Button16Click
+              OnClick = Button9Click
             end
           end
           object Memo2: TMemo
             Left = 1
-            Top = 59
-            Width = 629
-            Height = 604
+            Top = 73
+            Width = 481
+            Height = 550
             Align = alClient
             Lines.Strings = (
               'Memo2')
@@ -888,9 +879,9 @@ object MainForm: TMainForm
           end
           object ProgressBar4: TProgressBar
             Left = 1
-            Top = 663
-            Width = 629
-            Height = 17
+            Top = 623
+            Width = 481
+            Height = 21
             Align = alBottom
             TabOrder = 2
           end
@@ -920,6 +911,10 @@ object MainForm: TMainForm
           #1088#1091#1075#1086#1081
         OnClick = N3Click
       end
+      object N12: TMenuItem
+        Caption = #1042#1099#1073#1086#1088' '#1076#1077#1081#1089#1090#1074#1080#1103' '#1087#1088#1080' '#1089#1086#1074#1087#1072#1076#1077#1085#1080#1080' '#1080#1084#1077#1085' '#1092#1072#1081#1083#1086#1074
+        OnClick = N12Click
+      end
     end
     object N6: TMenuItem
       Caption = #1055#1077#1088#1077#1081#1090#1080
@@ -944,10 +939,10 @@ object MainForm: TMainForm
       end
     end
   end
-  object Timer1: TTimer
-    Enabled = False
-    OnTimer = Timer1Timer
-    Left = 464
-    Top = 32
+  object SaveDialog1: TSaveDialog
+    DefaultExt = 'log'
+    Filter = #1092#1072#1081#1083' log|*.log|'#1074#1089#1077' '#1092#1072#1081#1083#1099'|*.*'
+    Left = 568
+    Top = 40
   end
 end

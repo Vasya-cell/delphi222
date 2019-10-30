@@ -1,9 +1,9 @@
 object MainForm: TMainForm
-  Left = 275
-  Top = 161
+  Left = 312
+  Top = 171
   Width = 1279
   Height = 840
-  Caption = #1055#1088#1080#1083#1086#1078#1077#1085#1080#1077' '#1076#1083#1103' '#1088#1072#1073#1086#1090#1099' '#1089' '#1092#1072#1081#1083#1072#1084#1080
+  Caption = #1040#1085#1072#1083#1080#1079#1072#1090#1086#1088' '#1088#1072#1089#1087#1086#1083#1086#1078#1077#1085#1080#1103' '#1092#1072#1081#1083#1086#1074' '#1085#1072' '#1076#1080#1089#1082#1077
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,7 @@ object MainForm: TMainForm
   OldCreateOrder = False
   Position = poScreenCenter
   WindowState = wsMaximized
+  OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 120
   TextHeight = 21
@@ -54,7 +55,7 @@ object MainForm: TMainForm
     Top = 81
     Width = 1261
     Height = 683
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     Align = alClient
     TabOrder = 1
     object TabSheet1: TTabSheet
@@ -517,6 +518,15 @@ object MainForm: TMainForm
             TabOrder = 0
             OnClick = Button6Click
           end
+          object Button10: TButton
+            Left = 128
+            Top = 8
+            Width = 169
+            Height = 25
+            Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074' '#1092#1072#1081#1083
+            TabOrder = 1
+            OnClick = Button10Click
+          end
         end
         object Memo1: TMemo
           Left = 1
@@ -837,40 +847,22 @@ object MainForm: TMainForm
               OnClick = BitBtn1Click
             end
             object Button13: TButton
-              Left = 240
-              Top = 8
-              Width = 89
+              Left = 0
+              Top = 40
+              Width = 121
               Height = 25
               Caption = #1054#1095#1080#1089#1090#1080#1090#1100
               TabOrder = 1
               OnClick = Button13Click
             end
-            object Button14: TButton
-              Left = 0
-              Top = 40
-              Width = 121
-              Height = 25
-              Caption = #1055#1088#1080#1086#1089#1090#1072#1085#1086#1074#1080#1090#1100
-              TabOrder = 2
-              OnClick = Button14Click
-            end
-            object Button15: TButton
-              Left = 128
-              Top = 40
-              Width = 105
-              Height = 25
-              Caption = #1047#1072#1087#1091#1089#1090#1080#1090#1100
-              TabOrder = 3
-              OnClick = Button15Click
-            end
-            object Button16: TButton
+            object Button9: TButton
               Left = 128
               Top = 8
-              Width = 105
+              Width = 169
               Height = 25
-              Caption = #1047#1072#1074#1077#1088#1096#1080#1090#1100
-              TabOrder = 4
-              OnClick = Button16Click
+              Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074' '#1092#1072#1081#1083
+              TabOrder = 2
+              OnClick = Button9Click
             end
           end
           object Memo2: TMemo
@@ -919,6 +911,10 @@ object MainForm: TMainForm
           #1088#1091#1075#1086#1081
         OnClick = N3Click
       end
+      object N12: TMenuItem
+        Caption = #1042#1099#1073#1086#1088' '#1076#1077#1081#1089#1090#1074#1080#1103' '#1087#1088#1080' '#1089#1086#1074#1087#1072#1076#1077#1085#1080#1080' '#1080#1084#1077#1085' '#1092#1072#1081#1083#1086#1074
+        OnClick = N12Click
+      end
     end
     object N6: TMenuItem
       Caption = #1055#1077#1088#1077#1081#1090#1080
@@ -943,10 +939,10 @@ object MainForm: TMainForm
       end
     end
   end
-  object Timer1: TTimer
-    Enabled = False
-    OnTimer = Timer1Timer
-    Left = 464
-    Top = 32
+  object SaveDialog1: TSaveDialog
+    DefaultExt = 'log'
+    Filter = #1092#1072#1081#1083' log|*.log|'#1074#1089#1077' '#1092#1072#1081#1083#1099'|*.*'
+    Left = 568
+    Top = 40
   end
 end
