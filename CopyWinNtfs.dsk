@@ -1,75 +1,86 @@
 [Closed Files]
-File_0=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\UnitAbout.dfm',0,1,1,1,1,0,0
-File_1=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\MainUnit.dfm',0,1,1,1,1,0,0
-File_2=SourceModule,'C:\Users\maksi\Downloads\CopyWinNtfs\MainUnit.dfm',0,1,1,1,1,0,0
-File_3=SourceModule,'C:\Users\maksi\Downloads\CopyWinNtfs\UnitAbout.dfm',0,1,1,1,1,0,0
-File_4=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\dll test\Unit1.pas',0,1,10,36,34,0,0
-File_5=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\dll test\Unit1.dfm',0,1,1,1,1,0,0
-File_6=SourceModule,'C:\Users\maksi\Desktop\институт\методы программирования\ЛР МП Защитин 742\4 new\Unit1.pas',0,1,19,25,19,1,0
-File_7=SourceModule,'C:\Users\maksi\Desktop\институт\методы программирования\ЛР МП Защитин 742\4 new\Unit1.dfm',0,1,1,1,1,0,0
-File_8=SourceModule,'D:\Загрузки\vbox\11 NTFS\Unit1.pas',0,1,215,20,222,1,0
-File_9=SourceModule,'C:\Users\maksi\Desktop\институт\методы программирования\Лабы\1\3\Unit1.pas',0,1,36,22,67,0,0
+File_0=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\analysisfiles.pas',0,1,106,60,37,0,0
+File_1=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfsres\MainUnit.pas',0,1,616,28,18,0,0
+File_2=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfsres\UnitAbout.pas',0,1,1,74,23,0,0
+File_3=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfsres\Movethds.pas',0,1,1,111,11,0,0
+File_4=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfsres\Addingfiles.pas',0,1,1,1,1,0,0
+File_5=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfsres\analysisfiles.pas',0,1,127,1,1,0,0
+File_6=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfsres\UnitCopy.pas',0,1,1,83,19,1,0
+File_7=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfsres\UnitCopy.dfm',0,1,1,1,1,0,0
+File_8=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfsres\UnitAbout.dfm',0,1,1,1,1,0,0
+File_9=SourceModule,'C:\Users\maksi\Desktop\институт\ОС\курсовая\dll test my\Unit1.pas',0,1,142,58,153,1,0
 
 [Modules]
-Module0=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\MainUnit.pas
-Module1=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\Movethds.pas
-Module2=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\Addingfiles.pas
-Module3=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\analysisfiles.pas
-Module4=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\CopyWinNtfs.dpr
-Module5=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\UnitAbout.pas
-Count=6
+Module0=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\MainUnit.pas
+Module1=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\Analysisthds.pas
+Module2=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\Addingfiles.pas
+Module3=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\UZastavka.pas
+Module4=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\UnitFormQuestion.pas
+Module5=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\UnitAbout.pas
+Module6=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\Movethds.pas
+Count=7
 EditWindowCount=1
 
-[C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\MainUnit.pas]
+[C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\MainUnit.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=1
+
+[C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\Analysisthds.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\Addingfiles.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\UZastavka.pas]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\Movethds.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\Addingfiles.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\analysisfiles.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\CopyWinNtfs.dpr]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\UnitAbout.pas]
+[C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\UnitFormQuestion.pas]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\ProjectGroup1.bpg]
+[C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\UnitAbout.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=0
+
+[C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\Movethds.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\ProjectGroup1.bpg]
+FormState=0
+FormOnTop=0
+
+[C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\CopyWinNtfs.dpr]
 FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=6
-CurrentView=4
+ViewCount=7
+CurrentView=0
 View0=0
 View1=1
 View2=2
 View3=3
 View4=4
 View5=5
+View6=6
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
 State=0
-Left=497
-Top=261
+Left=568
+Top=182
 Width=1302
 Height=682
 MaxLeft=-1
@@ -80,49 +91,56 @@ LeftPanelSize=140
 LeftPanelClients=CodeExplorer@EditWindow0
 LeftPanelData=000004000000000000000000000000000000000000000000000100000000000000000C000000436F64654578706C6F726572FFFFFFFF
 RightPanelSize=0
-BottomPanelSize=0
+BottomPanelSize=85
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=00000400010000000B0000004D657373616765566965770000000000000000000000000000000000FFFFFFFF
+BottomPanelData=00000400000000000605000000000000025500000000000000010000000000000000000000000100000000060500000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
-Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\CopyWinNtfs.dpr
+Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\MainUnit.pas
 CursorX=1
-CursorY=1
-TopLine=1
+CursorY=489
+TopLine=485
 LeftCol=1
 
 [View1]
-Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\Addingfiles.pas
+Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\Movethds.pas
 CursorX=1
 CursorY=1
-TopLine=49
+TopLine=216
 LeftCol=1
 
 [View2]
-Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\analysisfiles.pas
+Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\Addingfiles.pas
 CursorX=1
 CursorY=1
-TopLine=1
+TopLine=172
 LeftCol=1
 
 [View3]
-Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\Movethds.pas
-CursorX=12
-CursorY=368
-TopLine=340
+Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\UnitAbout.pas
+CursorX=44
+CursorY=9
+TopLine=1
 LeftCol=1
 
 [View4]
-Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\MainUnit.pas
-CursorX=124
-CursorY=1141
-TopLine=1141
+Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\Analysisthds.pas
+CursorX=3
+CursorY=119
+TopLine=108
 LeftCol=1
 
 [View5]
-Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\CopyWinNtfs\UnitAbout.pas
-CursorX=122
+Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\UnitFormQuestion.pas
+CursorX=47
 CursorY=14
+TopLine=1
+LeftCol=1
+
+[View6]
+Module=C:\Users\maksi\Desktop\институт\ОС\курсовая\release\CopyWinNtfs1\CopyWinNtfs\UZastavka.pas
+CursorX=5
+CursorY=49
 TopLine=1
 LeftCol=1
 
@@ -152,8 +170,8 @@ ClientHeight=84
 Create=1
 Visible=0
 State=0
-Left=369
-Top=372
+Left=343
+Top=248
 Width=446
 Height=318
 MaxLeft=-1
@@ -194,7 +212,7 @@ LRDockWidth=190
 Dockable=1
 SplitPos=85
 ArrangeBy=Name
-SelectedItem=Caption
+SelectedItem=OnCreate
 ExpandedItems=
 HiddenCategories=
 
@@ -221,26 +239,26 @@ State=0
 Left=0
 Top=12
 Width=140
-Height=631
+Height=543
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=140
-ClientHeight=631
+ClientHeight=543
 TBDockHeight=305
 LRDockWidth=140
 Dockable=1
 
 [MessageView@EditWindow0]
 Create=1
-Visible=0
+Visible=1
 State=0
-Left=-715
-Top=-715
-Width=443
+Left=12
+Top=0
+Width=1274
 Height=85
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=443
+ClientWidth=1274
 ClientHeight=85
 TBDockHeight=85
 LRDockWidth=443

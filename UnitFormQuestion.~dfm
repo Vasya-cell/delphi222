@@ -1,26 +1,26 @@
 object FormQuestion: TFormQuestion
-  Left = 688
-  Top = 244
+  Left = 695
+  Top = 330
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsDialog
   Caption = #1042#1099#1073#1086#1088' '#1076#1077#1081#1089#1090#1074#1080#1103' '#1087#1088#1080' '#1089#1086#1074#1087#1072#1076#1077#1085#1080#1080' '#1080#1084#1077#1085' '#1092#1072#1081#1083#1086#1074
-  ClientHeight = 351
-  ClientWidth = 560
+  ClientHeight = 281
+  ClientWidth = 472
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -17
+  Font.Height = -14
   Font.Name = 'MS Sans Serif'
-  Font.Style = []
+  Font.Style = [fsBold]
   OldCreateOrder = False
   OnCreate = FormCreate
-  PixelsPerInch = 120
-  TextHeight = 20
+  PixelsPerInch = 96
+  TextHeight = 16
   object RadioGroup1: TRadioGroup
     Left = 0
     Top = 0
-    Width = 560
-    Height = 249
+    Width = 472
+    Height = 199
     Align = alTop
     Caption = #1044#1077#1081#1089#1090#1074#1080#1077
     Items.Strings = (
@@ -30,19 +30,19 @@ object FormQuestion: TFormQuestion
     TabOrder = 0
   end
   object Button1: TButton
-    Left = 120
-    Top = 304
-    Width = 121
-    Height = 33
+    Left = 96
+    Top = 243
+    Width = 97
+    Height = 27
     Caption = #1055#1088#1080#1084#1077#1085#1080#1090#1100
     TabOrder = 1
     OnClick = Button1Click
   end
   object Button2: TButton
-    Left = 312
-    Top = 304
-    Width = 89
-    Height = 33
+    Left = 250
+    Top = 243
+    Width = 71
+    Height = 27
     Caption = #1054#1090#1084#1077#1085#1072
     TabOrder = 2
     OnClick = Button2Click

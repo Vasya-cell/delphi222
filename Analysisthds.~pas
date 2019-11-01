@@ -45,7 +45,7 @@ type  MFT_REF = Packed Record
 implementation
 uses  MainUnit;
 //работа с библиотекой     ntfs.dll
- //f                   unction Get_MFT_EntryForPath (path : PWideChar; pathlen:Integer; var exMFT_REF: MFT_REF{PMFT_RECORD}) : DWord; stdcall; external 'ntfs.dll';
+
 var  s:pwidechar;  // путь
   cindex: DWORD;// index of disk context
   found:integer;
@@ -94,7 +94,7 @@ procedure TAnalysisthds.Execute;
   iSize: integer;  stemp,stek:string;
   nrec, nfirst:int64;
 begin
- //MainForm.memo2.Clear;
+
  p:=0;
     while (not Terminated) and (p<length(mainform._maspath))  do
      begin
@@ -116,8 +116,11 @@ GetMem(mass, sizeof(DWORD)*3*50); // Выделить память под 50 отрезков
 // Передать функции адрес pcontext[cindex]
 found:=Get_MFT_EntryForPath (@pcontext[cindex], s, -1, custRecptr);
 mainform.memo2.Lines.Add(mainform._maspath[p]);
-nrec:=(custRecptr.indexHigh shl 32) + custRecptr.indexLow;
- // mainform.memo2.Lines.Add('Номер записи = ' + inttostr(custRecptr.indexLow));
+nrec:=0;
+nrec:=custRecptr.indexHigh;
+nrec:=nrec shl 32;
+nrec:=nrec + custRecptr.indexLow;
+
 
      mainform.memo2.Lines.Add('Номер записи = ' + inttostr(nrec));
 found:=GetFileClusters(pcontext[cindex],exMFT_REF1,@buflen,mass);   // если buflen больше, чем 50 (чем указано в GetMem выше)
@@ -139,8 +142,10 @@ begin
 fragments:=PFILE_FRAGMENT(mass);
 if  ((fragments.lcnHigh+fragments.lcnLow) <>0) and  (fragments.count<>0) then
 begin
- nfirst:=(fragments.lcnHigh shl 32) + fragments.lcnLow;
-//stek:='Номер 1-го кластера = ' + inttostr(fragments.lcnHigh+fragments.lcnLow) +'; длина в кластерах = ' + inttostr(fragments.count) ;
+ nfirst:=0;
+ nfirst:=fragments.lcnHigh;
+ nfirst:=nfirst shl 32;
+ nfirst:=nfirst + fragments.lcnLow;
  stek:='Номер 1-го кластера = ' + inttostr(nfirst) +'; длина в кластерах = ' + inttostr(fragments.count) ;
  if stek<>stemp then
  begin
@@ -156,7 +161,7 @@ begin
         dec(count);
         end;
 
-//if (buflen = 0) then   mainform.memo2.Lines.Add('Атрибут $DATA резидентный');
+
 
 dec(mass, buflen*3); // чтобы в FreeMem правильный указатель попал
 FreeMem(mass);
@@ -168,68 +173,7 @@ inc(p);
 end;
 end;
 
-    // вызывать перед закрытием приложения для всех ненулевых элементов
-//if pcontext[i]<>nil
- // then FreeNTFSContext(pcontext[i]);
 
-//Dispose(custRecPtr);
-//Dispose(fragments);
-
-
- // если входит в A..Z
-
-
-
-
-
-          {s:=   StringToPWide(mainform._maspath[i],iSize);
-              s3:=' путь'+' '+mainform._maspath[i];
-               s2:='';
-           s2:=s2+mainform._maspath[i][1];
-           if (s2[1] >= 'a') and  (s2[1] <= 'z') then  letter :=Chr(Ord(letter) - 32);
-         //     showmessage(inttostr(ord(s2[1])-ord('A')));
-         // mainform.memo2.Lines.Add(s);
-         inputlen:=-1;
-      //   context[ord(s2[1])-ord('A')]:=null;
-          found:=Get_MFT_EntryForPath (context[ord(mainform._maspath[i][1])-ord('A')],s, inputlen, Myrec);
-       mainform.memo2.Lines.Add(mainform._maspath[i]+' '+inttostr(found)+' '+inttostr(context[ord(s2[1])-ord('A')].clustersize)+' '+inttostr(Myrec.indexHigh)+' '+inttostr(Myrec.ordinal));
-
- //  sleep(100);
-          if found=0 then
-          begin
-         // letter:=s[0];
-         read:=8;
-
-  //if (s2[1] >= 'a') and  (s2[1] <= 'z') then  letter :=Chr(Ord(letter) - 32);
- // mainform.memo2.Lines.Add(s3+' '+s2[1]+' '+inttostr(context[ord(s2[1])-ord('A')].sectorsize) );
-         // mainform.memo2.Lines.Add(mainform._maspath[i]+' '+inttostr(found)+' '+inttostr(exMFT_REF.indexLow)+' '+inttostr(exMFT_REF.indexHigh)+' '+inttostr(exMFT_REF.ordinal));
-found1 := GetFileClusters(context[ord(s2[1])-ord('A')], Myrec, read, clusters);
-
-
-    {  written:= 0;
-		  mainform.memo2.Lines.Add('File fragments:');
-      j:=0;
-
-			for  ii:= 0 to read-1 do
-      begin
-   //     if (clusters[j + 1] = 0) then
-
-
-	 //		fmt:= '%x%08x';
-
-				mainform.memo2.Lines.Add('Start cluster : '+ inttostr(clusters[j + 1]));
-        j:=j+3;
-		 //		WriteConsoleW(consoleOut, L", length: ", sizeof(L", length: ")/2-1, &written, 0);
-		 //		buffer[written = wsprintfW(buffer, L"%08x\r\n", clusters[j + 2])] = 0;
-		 //		WriteConsoleW(consoleOut, buffer, written, &written, 0);
-		    end;   }
-            {
-
-          end
-          else      mainform.memo2.Lines.Add (mainform._maspath[i]+' '+'не найдено')  ;
-
-          inc(i);
-        end;     }
  mainform.flaganaliza:=false;
  mainform.ProgressBar4.Position:=0;
 

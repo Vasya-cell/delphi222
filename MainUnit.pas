@@ -219,7 +219,7 @@ begin
   FileTimeToLocalFileTime(FileTime, LocFTime);                                  // Переводим дату файла в унививерсальное глобальное время (по Гринвичу)
   FileTimeToSystemTime(LocFTime, SysFTime);                                     // Переводим  унививерсальное глобальное время в сист. время на комп-ре
   try
-    with SysFTime do                                                            // теперь дата храниться в SysFTime. С помощью ее выполнять..
+    with SysFTime do                                                           // теперь дата храниться в SysFTime. С помощью ее выполнять..
     begin
       {Превращаем данные в формат DateTime}
       Date    := EncodeDate(wYear, wMonth, wDay);
@@ -877,8 +877,10 @@ begin
               for i := 0 to ListView2.Items.Count - 1 do
                 if ListView2.Items[i].Selected then
                   begin
-                    if  not DeleteFile(pchar(rDirectoryLabel.Caption + ListView2.Items[i].Caption)) then
-                      Remove(pchar(rDirectoryLabel.Caption + ListView2.Items[i].Caption)) ;
+
+                      if  not DeleteFile(pchar(rDirectoryLabel.Caption + ListView2.Items[i].Caption))
+            then Remove(pchar(rDirectoryLabel.Caption + ListView2.Items[i].Caption))
+            else memo1.lines.add(rDirectoryLabel.Caption + ListView2.Items[i].Caption+': ok');
                   end;
               AddFile(rDirectoryLabel.Caption + '*.*', faAnyFile,MainForm.ListView2,MainForm.rDirectoryLabel);
               if rDirectoryLabel.Caption =rDirectoryLabel.Caption then
@@ -1050,7 +1052,7 @@ begin
       end;
    flaganaliza   :=true;
    ProgressBar4.Max:=length(_maspath);
-  // exempanalysisfiles :=Tanalysisfiles.Create();
+
    exempAnalysisthds :=TAnalysisthds.Create();
 end;
 

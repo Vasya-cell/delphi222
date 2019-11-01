@@ -38,6 +38,7 @@ type
    function __CopyFolder(SourceDir, TargetDir: string): integer;
    function __CopyFile(fSource, fDest: String): Longint;
    function GetFileCount(Dir: string):integer;
+  function ExtractFileNameEx(FileName: string; ShowExtension: Boolean): string;
 
    function FileGetSize(const aFileName: string): Int64;
 
@@ -70,6 +71,60 @@ begin
 end;
 
 
+function TMoveThread.ExtractFileNameEx(FileName: string; ShowExtension: Boolean): string;
+//Функция возвращает имя файла, без или с его расширением.
+
+//ВХОДНЫЕ ПАРАМЕТРЫ
+//FileName - имя файла, которое надо обработать
+//ShowExtension - если TRUE, то функция возвратит короткое имя файла
+// (без полного пути доступа к нему), с расширением этого файла, иначе,
+//возвратит
+  // короткое имя файла, без расширения этого файла.
+var
+  I: Integer;
+  S, S1: string;
+begin
+  //Определяем длину полного имени файла
+  I := Length(FileName);
+  //Если длина FileName <> 0, то
+  if I <> 0 then
+  begin
+    //С конца имени параметра FileName ищем символ "\"
+    while (FileName[i] <> '\') and (i > 0) do
+      i := i - 1;
+    // Копируем в переменную S параметр FileName начиная после последнего
+    // "\", таким образом переменная S содержит имя файла с расширением, но без
+    // полного пути доступа к нему
+    S := Copy(FileName, i + 1, Length(FileName) - i);
+    i := Length(S);
+    //Если полученная S = '' то фукция возвращает ''
+    if i = 0 then
+    begin
+      Result := '';
+      Exit;
+    end;
+    //Иначе, получаем имя файла без расширения
+    while (S[i] <> '.') and (i > 0) do
+      i := i - 1;
+    //... и сохраням это имя файла в переменную s1
+    S1 := Copy(S, 1, i - 1);
+    //если s1='' то , возвращаем s1=s
+    if s1 = '' then
+      s1 := s;
+    //Если было передано указание функции возвращать имя файла с его
+    // расширением, то Result = s,
+    //если без расширения, то Result = s1
+    if ShowExtension = TRUE then
+      Result := s
+    else
+      Result := s1;
+  end
+    //Иначе функция возвращает ''
+  else
+    Result := '';
+end;
+
+
 function TMoveThread.__CopyFile(fSource, fDest: String): Longint;
 Const
 
@@ -98,7 +153,14 @@ fDestt:=fDest;
                       end;
 
          if mainform.modecopy=2 then
+         begin
         fDestt:=fDest+' (2)';
+
+
+      fDestt:=ExtractFilePath  (fDest)+
+       ExtractFileNameEx(fDest,false)+ ' (2)'+ExtractFileExt   (fDest);
+
+        end;
     end;
  mainform.GetDiskSize(fDestt[1],free_size, total_size) ;
                    if  (free_size)<FileGetSize(fSource) then

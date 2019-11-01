@@ -45,7 +45,7 @@ type  MFT_REF = Packed Record
 implementation
 uses  MainUnit;
 //работа с библиотекой     ntfs.dll
- //f                   unction Get_MFT_EntryForPath (path : PWideChar; pathlen:Integer; var exMFT_REF: MFT_REF{PMFT_RECORD}) : DWord; stdcall; external 'ntfs.dll';
+
 var  s:pwidechar;  // путь
   cindex: DWORD;// index of disk context
   found:integer;
@@ -94,7 +94,7 @@ procedure TAnalysisthds.Execute;
   iSize: integer;  stemp,stek:string;
   nrec, nfirst:int64;
 begin
- //MainForm.memo2.Clear;
+
  p:=0;
     while (not Terminated) and (p<length(mainform._maspath))  do
      begin
@@ -116,8 +116,11 @@ GetMem(mass, sizeof(DWORD)*3*50); // Выделить память под 50 отрезков
 // Передать функции адрес pcontext[cindex]
 found:=Get_MFT_EntryForPath (@pcontext[cindex], s, -1, custRecptr);
 mainform.memo2.Lines.Add(mainform._maspath[p]);
-nrec:=(custRecptr.indexHigh shl 32) + custRecptr.indexLow;
- // mainform.memo2.Lines.Add('Номер записи = ' + inttostr(custRecptr.indexLow));
+//nrec:=0;
+nrec:=custRecptr.indexHigh;
+nrec:=nrec shl 32;
+nrec:=nrec + custRecptr.indexLow;
+
 
      mainform.memo2.Lines.Add('Номер записи = ' + inttostr(nrec));
 found:=GetFileClusters(pcontext[cindex],exMFT_REF1,@buflen,mass);   // если buflen больше, чем 50 (чем указано в GetMem выше)
@@ -139,8 +142,10 @@ begin
 fragments:=PFILE_FRAGMENT(mass);
 if  ((fragments.lcnHigh+fragments.lcnLow) <>0) and  (fragments.count<>0) then
 begin
- nfirst:=(fragments.lcnHigh shl 32) + fragments.lcnLow;
-//stek:='Номер 1-го кластера = ' + inttostr(fragments.lcnHigh+fragments.lcnLow) +'; длина в кластерах = ' + inttostr(fragments.count) ;
+ //nfirst:=0;
+ nfirst:=fragments.lcnHigh;
+ nfirst:=nfirst shl 32;
+ nfirst:=nfirst + fragments.lcnLow;
  stek:='Номер 1-го кластера = ' + inttostr(nfirst) +'; длина в кластерах = ' + inttostr(fragments.count) ;
  if stek<>stemp then
  begin
@@ -156,7 +161,7 @@ begin
         dec(count);
         end;
 
-//if (buflen = 0) then   mainform.memo2.Lines.Add('Атрибут $DATA резидентный');
+
 
 dec(mass, buflen*3); // чтобы в FreeMem правильный указатель попал
 FreeMem(mass);
